@@ -6,7 +6,12 @@ const cors = require("cors")
 
 const app = express();
 
-mongoose.connect(process.env.DATABASE_URL);
+mongoose.set('strictQuery', true);
+
+const PORT = process.env.AUTH_PORT;
+mongoose.connect(process.env.CONNECTION_URL)
+  .then(() => console.log('Connected to MongoDB'))
+  .catch((error) => console.log(error.message));
 
 const db = mongoose.connection;
 db.on("error", (error) => console.error(error));
